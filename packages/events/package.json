@@ -1,0 +1,18 @@
+{
+  "name": "@airline/events",
+  "version": "1.0.0",
+  "description": "Shared Kafka event definitions and topics for Airline Reservation Platform",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@airline/types": "workspace:*"
+  },
+  "devDependencies": {
+    "rimraf": "^6.0.1",
+    "typescript": "^5.7.3"
+  }
+}

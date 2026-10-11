@@ -1,0 +1,26 @@
+{
+  "name": "airline-reservation-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Distributed Airline Reservation & Flight Management Platform",
+  "scripts": {
+    "build": "turbo run build",
+    "test": "npx tsx --test tests/*.test.ts",
+    "test:phase1": "npx tsx --test tests/phase1.test.ts",
+    "test:phase2": "npx tsx --test tests/phase2.test.ts",
+    "test:phase3": "npx tsx --test tests/phase3.test.ts",
+    "seed": "npx tsx packages/db/src/seed.ts",
+    "lint": "turbo run lint",
+    "dev": "turbo run dev",
+    "clean": "turbo run clean"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "turbo": "^2.4.4",
+    "typescript": "^5.7.3"
+  },
+  "packageManager": "pnpm@9.15.4",
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
