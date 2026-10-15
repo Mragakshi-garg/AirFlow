@@ -63,10 +63,11 @@
   - Saga Orchestrator: `BookingCreated` -> `PaymentPending` -> `PaymentSuccess/Failed` -> `ConfirmBooking/ReleaseSeat` with automated rollback & compensation.
   - Idempotency with `Idempotency-Key` header.
   - Automated pass check suite (All 75 tests passing across Phases 1, 2, 3, 4, 5 & 6).
-- [ ] **Phase 7: Background Jobs (BullMQ) & Seat Hold Flow** (NEXT)
-  - Seat hold expiry: 600s TTL BullMQ delayed job auto-releasing seat.
-  - Periodic Sweeper jobs.
-- [ ] **Phase 8: Event Architecture & Notifications**
+- [x] **Phase 7: Background Jobs (BullMQ) & Seat Hold Flow** (COMPLETED & VERIFIED)
+  - Seat hold expiry: BullMQ delayed job automatically auto-releasing seat on TTL expiry.
+  - Periodic Sweeper jobs (cleaning orphaned seat holds and expired pending bookings).
+  - Automated pass check suite (All 82 tests passing across Phases 1, 2, 3, 4, 5, 6 & 7).
+- [ ] **Phase 8: Event Architecture & Notifications** (NEXT)
   - Kafka consumers with Consumer Groups and DLQ.
   - Notification Service: `FlightBooked`, `PaymentCompleted`, `FlightDelayed`.
 - [ ] **Phase 9: Observability & Resilience**

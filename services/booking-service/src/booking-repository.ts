@@ -24,6 +24,8 @@ export interface BookingRepository {
   getIdempotencyRecord(key: string): Promise<IdempotencyRecord | null>;
   saveIdempotencyRecord(record: IdempotencyRecord): Promise<void>;
 
+  getExpiredPendingBookings(now?: Date): Promise<Booking[]>;
+
   clear(): Promise<void>;
 }
 
@@ -162,6 +164,13 @@ export class InMemoryBookingRepository implements BookingRepository {
 
   async saveIdempotencyRecord(record: IdempotencyRecord): Promise<void> {
     this.idempotencyStore.set(record.idempotencyKey, { ...record });
+  }
+
+  async getExpiredPendingBookings(now: Date = new Date()): Promise<Booking[]> {
+    const threshold = now.getTime();
+    return Array.from(this.bookings.values()).filter(
+      (b) => b.status === 'PENDING' && new Date(b.expiresAt).getTime() <= threshold
+    );
   }
 
   async clear(): Promise<void> {

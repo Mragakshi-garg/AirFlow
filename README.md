@@ -50,7 +50,7 @@
 - [x] **Phase 4: Inventory & The Concurrency Core** (Verified — Redlock + OCC + Row-level lock, 500-request parallel test)
 - [x] **Phase 5: Flight Search & Caching** (Verified — Elasticsearch sync + Redis cache-aside + Singleflight)
 - [x] **Phase 6: Booking, Payment & Transactional Outbox (Saga)** (Verified — Saga Orchestrator, Outbox Relay, Idempotency)
-- [ ] **Phase 7: Background Jobs (BullMQ) & Seat Hold Expiry**
+- [x] **Phase 7: Background Jobs (BullMQ) & Seat Hold Expiry** (Verified — BullMQ delayed queue, auto-release, periodic sweeper)
 - [ ] **Phase 8: Event Architecture & Notification Service**
 - [ ] **Phase 9: Observability, Circuit Breakers & Rate Limiting**
 - [ ] **Phase 10: Integration Testing & k6 Load Tests**

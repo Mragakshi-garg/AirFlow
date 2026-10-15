@@ -1,0 +1,30 @@
+{
+  "name": "@airline/worker-service",
+  "version": "1.0.0",
+  "description": "Background jobs worker service with BullMQ, seat hold auto-expiry, and periodic sweepers",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@airline/booking-service": "workspace:*",
+    "@airline/db": "workspace:*",
+    "@airline/events": "workspace:*",
+    "@airline/inventory-service": "workspace:*",
+    "@airline/logger": "workspace:*",
+    "@airline/types": "workspace:*",
+    "bullmq": "^5.41.6",
+    "dotenv": "^16.4.7",
+    "ioredis": "^5.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
