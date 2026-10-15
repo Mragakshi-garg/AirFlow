@@ -26,16 +26,18 @@
 │   ├── logger/         # Pino structured JSON logging with correlation IDs
 │   └── db/             # Drizzle schema, connection pool & 1000+ flight seeder
 ├── services/
-│   ├── auth-service/   # JWT authentication, Redis token revocation list & RBAC
-│   └── admin-service/  # Airline CRUD, flight operations & inventory generation
+│   ├── auth-service/      # JWT authentication, Redis token revocation list & RBAC
+│   ├── admin-service/     # Airline CRUD, flight operations & inventory generation
+│   └── inventory-service/ # Seat hold core, 3-tiered lock & high-concurrency engine
 ├── infrastructure/
-│   ├── nginx/          # API Gateway reverse proxy configuration
-│   └── prometheus/     # Metrics scraping definitions
+│   ├── nginx/             # API Gateway reverse proxy configuration
+│   └── prometheus/        # Metrics scraping definitions
 ├── tests/
-│   ├── phase1.test.ts  # Monorepo foundation & shared libraries verification
-│   ├── phase2.test.ts  # Database schema, partitioning & seeder verification
-│   └── phase3.test.ts  # Auth, Redis blacklist, RBAC & admin endpoints verification
-└── docker-compose.yml  # Complete local infrastructure stack
+│   ├── phase1.test.ts     # Monorepo foundation & shared libraries verification
+│   ├── phase2.test.ts     # Database schema, partitioning & seeder verification
+│   ├── phase3.test.ts     # Auth, Redis blacklist, RBAC & admin endpoints verification
+│   └── phase4.test.ts     # Inventory hold, 3-tiered lock & 500-request concurrency verification
+└── docker-compose.yml     # Complete local infrastructure stack
 ```
 
 ---
@@ -45,7 +47,7 @@
 - [x] **Phase 1: Foundation, Infra & Monorepo Setup** (Verified — 8 tests passing)
 - [x] **Phase 2: Database Schema & Seed Script** (Verified — 1000+ flights seeder & partitioning)
 - [x] **Phase 3: Auth & Admin Service** (Verified — JWT, Redis blacklist, RBAC, Admin CRUD, Nginx Gateway)
-- [ ] **Phase 4: Inventory & The Concurrency Core** (3-tiered lock: Redlock + OCC + Row-level lock)
+- [x] **Phase 4: Inventory & The Concurrency Core** (Verified — Redlock + OCC + Row-level lock, 500-request parallel test)
 - [ ] **Phase 5: Flight Search & Caching** (Elasticsearch sync + Redis cache-aside)
 - [ ] **Phase 6: Booking, Payment & Transactional Outbox (Saga)**
 - [ ] **Phase 7: Background Jobs (BullMQ) & Seat Hold Expiry**
@@ -82,4 +84,4 @@ npm run seed
 ```bash
 npm test
 ```
-All 34 automated unit & service tests will execute across all implemented phases.
+All 48 automated unit, concurrency & service tests will execute across all implemented phases.

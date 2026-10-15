@@ -45,11 +45,13 @@
   - Admin Service: CRUD for airlines, flights, and seat inventory generation.
   - API Gateway (Nginx) reverse proxy routing config in infrastructure/nginx/nginx.conf.
   - Automated pass check suite (All 34 tests passing across Phase 1, 2 & 3).
-- [ ] **Phase 4: Inventory & The Concurrency Core (Critical)** (NEXT)
-  - Seat holding mechanism.
-  - 3-Tiered Concurrency Protection: Redlock -> Optimistic Concurrency Control -> Pessimistic Row-Level Lock (`SELECT ... FOR UPDATE`).
-  - Concurrency tests (500 parallel requests on single seat asserting exactly 1 success).
-- [ ] **Phase 5: Flight Search & Caching**
+- [x] **Phase 4: Inventory & The Concurrency Core (Critical)** (COMPLETED & VERIFIED)
+  - Seat holding mechanism with configurable TTL, auto-expiration and lifecycle states (AVAILABLE -> HELD -> BOOKED).
+  - 3-Tiered Concurrency Protection: Redlock (Tier 1) -> OCC with version checking (Tier 2) -> Pessimistic Row-Level Lock (`SELECT ... FOR UPDATE` / row mutex) (Tier 3).
+  - Inventory Service HTTP API (`/api/inventory/flights/:id/seats`, `/api/inventory/seats/:id/hold`, `/api/inventory/seats/:id/release`, `/api/inventory/seats/:id/confirm`).
+  - High-concurrency stress test: 500 parallel requests on single seat asserting exactly 1 winner and 499 conflicts.
+  - Automated pass check suite (All 48 tests passing across Phases 1, 2, 3 & 4).
+- [ ] **Phase 5: Flight Search & Caching** (NEXT)
   - Search Service: Synchronize PostgreSQL flights to Elasticsearch via Kafka.
   - Search API with Redis cache-aside (Singleflight / Mutex + Jittered TTL).
 - [ ] **Phase 6: Booking, Payment & Transactional Outbox (Saga)**

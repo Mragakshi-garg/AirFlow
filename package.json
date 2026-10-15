@@ -9,6 +9,7 @@
     "test:phase1": "npx tsx --test tests/phase1.test.ts",
     "test:phase2": "npx tsx --test tests/phase2.test.ts",
     "test:phase3": "npx tsx --test tests/phase3.test.ts",
+    "test:phase4": "npx tsx --test tests/phase4.test.ts",
     "seed": "npx tsx packages/db/src/seed.ts",
     "lint": "turbo run lint",
     "dev": "turbo run dev",
