@@ -51,10 +51,13 @@
   - Inventory Service HTTP API (`/api/inventory/flights/:id/seats`, `/api/inventory/seats/:id/hold`, `/api/inventory/seats/:id/release`, `/api/inventory/seats/:id/confirm`).
   - High-concurrency stress test: 500 parallel requests on single seat asserting exactly 1 winner and 499 conflicts.
   - Automated pass check suite (All 48 tests passing across Phases 1, 2, 3 & 4).
-- [ ] **Phase 5: Flight Search & Caching** (NEXT)
-  - Search Service: Synchronize PostgreSQL flights to Elasticsearch via Kafka.
-  - Search API with Redis cache-aside (Singleflight / Mutex + Jittered TTL).
-- [ ] **Phase 6: Booking, Payment & Transactional Outbox (Saga)**
+- [x] **Phase 5: Flight Search & Caching** (COMPLETED & VERIFIED)
+  - Search Service: Synchronize PostgreSQL flights to Elasticsearch/Search Index via Kafka events.
+  - Search API with Redis cache-aside (Singleflight request coalescing + Jittered TTL).
+  - Faceted search aggregations (airlines, min/max/avg price range) and multi-field routing.
+  - High-concurrency Singleflight stress test: 50 parallel requests coalescing onto exactly 1 underlying execution.
+  - Automated pass check suite (All 64 tests passing across Phases 1, 2, 3, 4 & 5).
+- [ ] **Phase 6: Booking, Payment & Transactional Outbox (Saga)** (NEXT)
   - Booking Service & Payment Service (Mock).
   - Transactional Outbox Pattern (`outbox_events` table + Kafka relay).
   - Saga Orchestrator: `BookingCreated` -> `PaymentPending` -> `PaymentSuccess/Failed` -> `ConfirmBooking/ReleaseSeat`.

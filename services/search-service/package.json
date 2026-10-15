@@ -1,0 +1,29 @@
+{
+  "name": "@airline/search-service",
+  "version": "1.0.0",
+  "description": "Flight search & caching service with Elasticsearch sync and Redis Singleflight cache-aside",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx watch src/index.ts",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@airline/db": "workspace:*",
+    "@airline/events": "workspace:*",
+    "@airline/logger": "workspace:*",
+    "@airline/types": "workspace:*",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "ioredis": "^5.4.2"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.7",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
