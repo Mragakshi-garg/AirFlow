@@ -102,7 +102,8 @@ export type BookingStatus =
   | 'CONFIRMED'
   | 'CANCELLED'
   | 'EXPIRED'
-  | 'REFUNDED';
+  | 'REFUNDED'
+  | 'FAILED';
 
 export interface Passenger {
   id?: string;

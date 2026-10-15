@@ -242,6 +242,52 @@ export class InventoryService {
   }
 
   /**
+   * Cancel a confirmed seat booking (returns seat to AVAILABLE status)
+   */
+  async cancelSeatBooking(
+    seatId: string,
+    userId: string,
+    reason: string = 'BOOKING_CANCELLED'
+  ): Promise<{ success: boolean; seat: FlightSeat }> {
+    const lockResource = `seat:${seatId}`;
+    const lockHandle = await this.redlock.acquire(lockResource, this.lockTtlMs);
+
+    if (!lockHandle) {
+      throw new ConcurrencyError('Seat is currently undergoing modification', 'LOCKED');
+    }
+
+    try {
+      return await this.repo.withRowLock(seatId, async (currentSeat: FlightSeat) => {
+        if (currentSeat.status === 'AVAILABLE') {
+          return { success: true, seat: currentSeat };
+        }
+
+        if (currentSeat.heldByUserId && currentSeat.heldByUserId !== userId) {
+          throw new ConcurrencyError('Unauthorized to cancel this seat booking', 'UNAUTHORIZED');
+        }
+
+        const updateResult = await this.repo.updateSeatWithOCC(seatId, currentSeat.version, {
+          status: 'AVAILABLE',
+          heldByUserId: null,
+          heldUntil: null,
+        });
+
+        if (!updateResult.success) {
+          throw new ConcurrencyError(
+            updateResult.errorMessage || 'Failed to cancel seat booking',
+            'OCC_CONFLICT'
+          );
+        }
+
+        logger.info('Seat booking cancelled, returned to AVAILABLE', { seatId, userId, reason });
+        return { success: true, seat: updateResult.seat! };
+      });
+    } finally {
+      await lockHandle.release().catch(() => {});
+    }
+  }
+
+  /**
    * Get flight seat inventory with real-time hold statuses
    */
   async getSeatsByFlight(flightId: string): Promise<FlightSeat[]> {

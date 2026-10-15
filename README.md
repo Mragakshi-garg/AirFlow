@@ -48,8 +48,8 @@
 - [x] **Phase 2: Database Schema & Seed Script** (Verified — 1000+ flights seeder & partitioning)
 - [x] **Phase 3: Auth & Admin Service** (Verified — JWT, Redis blacklist, RBAC, Admin CRUD, Nginx Gateway)
 - [x] **Phase 4: Inventory & The Concurrency Core** (Verified — Redlock + OCC + Row-level lock, 500-request parallel test)
-- [ ] **Phase 5: Flight Search & Caching** (Elasticsearch sync + Redis cache-aside)
-- [ ] **Phase 6: Booking, Payment & Transactional Outbox (Saga)**
+- [x] **Phase 5: Flight Search & Caching** (Verified — Elasticsearch sync + Redis cache-aside + Singleflight)
+- [x] **Phase 6: Booking, Payment & Transactional Outbox (Saga)** (Verified — Saga Orchestrator, Outbox Relay, Idempotency)
 - [ ] **Phase 7: Background Jobs (BullMQ) & Seat Hold Expiry**
 - [ ] **Phase 8: Event Architecture & Notification Service**
 - [ ] **Phase 9: Observability, Circuit Breakers & Rate Limiting**

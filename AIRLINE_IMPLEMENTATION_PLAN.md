@@ -57,12 +57,13 @@
   - Faceted search aggregations (airlines, min/max/avg price range) and multi-field routing.
   - High-concurrency Singleflight stress test: 50 parallel requests coalescing onto exactly 1 underlying execution.
   - Automated pass check suite (All 64 tests passing across Phases 1, 2, 3, 4 & 5).
-- [ ] **Phase 6: Booking, Payment & Transactional Outbox (Saga)** (NEXT)
+- [x] **Phase 6: Booking, Payment & Transactional Outbox (Saga)** (COMPLETED & VERIFIED)
   - Booking Service & Payment Service (Mock).
   - Transactional Outbox Pattern (`outbox_events` table + Kafka relay).
-  - Saga Orchestrator: `BookingCreated` -> `PaymentPending` -> `PaymentSuccess/Failed` -> `ConfirmBooking/ReleaseSeat`.
-  - Idempotency with `Idempotency-Key`.
-- [ ] **Phase 7: Background Jobs (BullMQ) & Seat Hold Flow**
+  - Saga Orchestrator: `BookingCreated` -> `PaymentPending` -> `PaymentSuccess/Failed` -> `ConfirmBooking/ReleaseSeat` with automated rollback & compensation.
+  - Idempotency with `Idempotency-Key` header.
+  - Automated pass check suite (All 75 tests passing across Phases 1, 2, 3, 4, 5 & 6).
+- [ ] **Phase 7: Background Jobs (BullMQ) & Seat Hold Flow** (NEXT)
   - Seat hold expiry: 600s TTL BullMQ delayed job auto-releasing seat.
   - Periodic Sweeper jobs.
 - [ ] **Phase 8: Event Architecture & Notifications**
